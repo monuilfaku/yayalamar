@@ -1,0 +1,7 @@
+[
+  {"name": "Padang", "file": "padang.json"},
+  {"name": "Bukittinggi", "file": "bukittinggi.json"},
+  {"name": "Bandung", "file": "bandung.json"},
+  {"name": "Bogor", "file": "bogor.json"},
+  {"name": "Surabaya", "file": "surabaya.json"}
+]
