@@ -658,7 +658,7 @@
     async function autoLoad() {
       // Try fetch first (works on GitHub Pages / local server)
       try {
-        const r = await fetch('gmaps_data.json');
+        const r = await fetch('../gmaps_data.json');
         if (!r.ok) throw new Error('not found');
         const d = await r.json();
         if (!Array.isArray(d) || !d.length) throw new Error('empty');
@@ -670,7 +670,7 @@
       try {
         const d = await new Promise((resolve, reject) => {
           const xhr = new XMLHttpRequest();
-          xhr.open('GET', 'gmaps_data.json', true);
+          xhr.open('GET', '../gmaps_data.json', true);
           xhr.onload = () => {
             if (xhr.status === 200) resolve(JSON.parse(xhr.responseText));
             else reject();
