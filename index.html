@@ -656,32 +656,53 @@
     });
 
     async function autoLoad() {
+      // Try fetch first (works on GitHub Pages / local server)
       try {
         const r = await fetch('gmaps_data.json');
         if (!r.ok) throw new Error('not found');
         const d = await r.json();
         if (!Array.isArray(d) || !d.length) throw new Error('empty');
-        companies = d.map((x, i) => ({
-          id: i,
-          name: x.name || 'Unknown',
-          address: x.address || '',
-          phone: cleanPhone(x.phone || ''),
-          website: x.website || '',
-          rating: x.rating || '',
-          reviews: x.reviews || '',
-          category: x.category || '',
-          place_url: x.place_url || ''
-        }));
-        saveData();
-        document.getElementById('list-section').style.display = 'block';
-        document.getElementById('drop-zone').style.display = 'none';
-        renderList();
-        updateStats();
-        toast(`✨ ${companies.length} perusahaan berhasil dimuat!`);
-      } catch(e) {
-        // Auto-load failed — show manual load zone
-        document.getElementById('drop-zone').style.display = 'block';
-      }
+        loadData(d);
+        return;
+      } catch(e) {}
+
+      // Fetch failed (file:// CORS) — try XMLHttpRequest (some browsers allow it)
+      try {
+        const d = await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', 'gmaps_data.json', true);
+          xhr.onload = () => {
+            if (xhr.status === 200) resolve(JSON.parse(xhr.responseText));
+            else reject();
+          };
+          xhr.onerror = () => reject();
+          xhr.send();
+        });
+        if (Array.isArray(d) && d.length) { loadData(d); return; }
+      } catch(e) {}
+
+      // Both failed — show manual load
+      document.getElementById('drop-zone').style.display = 'block';
+    }
+
+    function loadData(d) {
+      companies = d.map((x, i) => ({
+        id: i,
+        name: x.name || 'Unknown',
+        address: x.address || '',
+        phone: cleanPhone(x.phone || ''),
+        website: x.website || '',
+        rating: x.rating || '',
+        reviews: x.reviews || '',
+        category: x.category || '',
+        place_url: x.place_url || ''
+      }));
+      saveData();
+      document.getElementById('list-section').style.display = 'block';
+      document.getElementById('drop-zone').style.display = 'none';
+      renderList();
+      updateStats();
+      toast(`✨ ${companies.length} perusahaan berhasil dimuat!`);
     }
 
     // ================================================================
@@ -761,22 +782,7 @@
         try {
           const d = JSON.parse(e.target.result);
           if (!Array.isArray(d)) throw new Error('Format harus array');
-          companies = d.map((x, i) => ({
-            id: i,
-            name: x.name || x.nama || 'Unknown',
-            address: x.address || x.alamat || '',
-            phone: cleanPhone(x.phone || x.telepon || ''),
-            website: x.website || '',
-            rating: x.rating || '',
-            reviews: x.reviews || '',
-            category: x.category || x.kategori || '',
-            place_url: x.place_url || ''
-          }));
-          saveData();
-          document.getElementById('list-section').style.display = 'block';
-          document.getElementById('drop-zone').style.display = 'none';
-          renderList();
-          updateStats();
+          loadData(d);
           toast(`✨ ${companies.length} perusahaan berhasil dimuat!`);
         } catch(err) { toast('Error: ' + err.message, true); }
       };
