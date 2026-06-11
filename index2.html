@@ -1,0 +1,1030 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Form Lamaran Yaya</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --pink-50: #fdf2f8;
+      --pink-100: #fce7f3;
+      --pink-200: #fbcfe8;
+      --pink-300: #f9a8d4;
+      --pink-400: #f472b6;
+      --pink-500: #ec4899;
+      --pink-600: #db2777;
+      --pink-700: #be185d;
+      --white: #ffffff;
+      --gray-50: #fafafa;
+      --gray-100: #f5f5f5;
+      --gray-200: #e5e5e5;
+      --gray-300: #d4d4d4;
+      --gray-400: #a3a3a3;
+      --gray-500: #737373;
+      --gray-600: #525252;
+      --gray-700: #404040;
+      --gray-800: #262626;
+      --gold: #b8956e;
+      --shadow-sm: 0 1px 2px rgba(0,0,0,0.04);
+      --shadow: 0 1px 3px rgba(0,0,0,0.06), 0 1px 2px rgba(0,0,0,0.04);
+      --shadow-md: 0 4px 6px rgba(0,0,0,0.05), 0 2px 4px rgba(0,0,0,0.03);
+      --radius: 16px;
+      --radius-sm: 10px;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, sans-serif;
+      background: var(--pink-50);
+      color: var(--gray-800);
+      min-height: 100vh;
+      line-height: 1.5;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: -200px; right: -200px;
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(244,114,182,0.12) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none; z-index: 0;
+    }
+
+    body::after {
+      content: '';
+      position: fixed;
+      bottom: -150px; left: -150px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(251,207,232,0.2) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none; z-index: 0;
+    }
+
+    .app {
+      position: relative; z-index: 1;
+      max-width: 860px; margin: 0 auto;
+      padding: 32px 20px 60px;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      text-align: center; margin-bottom: 36px;
+      padding: 36px 24px;
+      background: var(--white);
+      border: 1px solid var(--pink-100);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow-md);
+      position: relative; overflow: hidden;
+    }
+
+    .header::before {
+      content: ''; position: absolute;
+      top: 0; left: 0; right: 0; height: 4px;
+      background: linear-gradient(90deg, var(--pink-300), var(--pink-500), var(--pink-300));
+    }
+
+    .header .flower { font-size: 36px; margin-bottom: 8px; }
+
+    .header h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: 32px; font-weight: 700;
+      color: var(--pink-600);
+      letter-spacing: -0.5px; margin-bottom: 6px;
+    }
+
+    .header .subtitle {
+      color: var(--pink-400); font-size: 14px;
+      font-weight: 500; margin-bottom: 4px;
+    }
+
+    .header .desc {
+      color: var(--gray-400); font-size: 12px; font-weight: 400;
+    }
+
+    
+    /* ===== STATS ===== */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px; margin-bottom: 24px;
+    }
+
+    .stat-card {
+      background: var(--white);
+      border: 1px solid var(--pink-100);
+      border-radius: var(--radius-sm);
+      padding: 16px 12px; text-align: center;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .stat-card .num {
+      font-size: 26px; font-weight: 700;
+      color: var(--pink-500); line-height: 1;
+    }
+
+    .stat-card.sent .num { color: var(--gold); }
+
+    .stat-card .label {
+      font-size: 10px; color: var(--gray-400);
+      text-transform: uppercase; letter-spacing: 0.8px;
+      margin-top: 4px; font-weight: 500;
+    }
+
+    /* ===== CARD ===== */
+    .card {
+      background: var(--white);
+      border: 1px solid var(--pink-100);
+      border-radius: var(--radius);
+      padding: 24px; margin-bottom: 20px;
+      box-shadow: var(--shadow);
+    }
+
+    .card h2 {
+      font-size: 14px; font-weight: 600;
+      color: var(--gray-700); margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
+    }
+
+    .card h2 .icon {
+      width: 28px; height: 28px;
+      background: var(--pink-50);
+      border: 1px solid var(--pink-200);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px;
+    }
+
+    /* ===== FORM ===== */
+    .form-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+
+    .form-group { display: flex; flex-direction: column; gap: 5px; }
+    .form-group.full { grid-column: 1 / -1; }
+
+    .form-group label {
+      font-size: 11px; color: var(--gray-500);
+      font-weight: 500; letter-spacing: 0.3px;
+    }
+
+    .form-group input, .form-group textarea {
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 11px 14px; color: var(--gray-800);
+      font-size: 13px; font-family: inherit;
+      transition: all 0.2s;
+    }
+
+    .form-group input:focus, .form-group textarea:focus {
+      outline: none; border-color: var(--pink-400);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(244,114,182,0.1);
+    }
+
+    .form-group input::placeholder, .form-group textarea::placeholder { color: var(--gray-300); }
+
+    /* ===== MESSAGE BOX ===== */
+    .message-box {
+      width: 100%; min-height: 180px;
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: var(--radius-sm);
+      padding: 14px; color: var(--gray-800);
+      font-size: 13px; font-family: inherit;
+      line-height: 1.8; resize: vertical;
+      transition: all 0.2s;
+    }
+
+    .message-box:focus {
+      outline: none; border-color: var(--pink-400);
+      background: var(--white);
+      box-shadow: 0 0 0 3px rgba(244,114,182,0.1);
+    }
+
+    .message-box::placeholder { color: var(--gray-300); }
+
+    .insert-buttons { display: flex; gap: 6px; margin-top: 10px; flex-wrap: wrap; }
+
+    .insert-btn {
+      display: inline-flex; align-items: center; gap: 4px;
+      padding: 6px 12px;
+      background: var(--pink-50);
+      border: 1px solid var(--pink-200);
+      border-radius: 6px; color: var(--pink-600);
+      font-size: 12px; font-weight: 500;
+      font-family: inherit; cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .insert-btn:hover { background: var(--pink-100); border-color: var(--pink-300); }
+    .insert-btn .plus { font-weight: 700; }
+
+    /* ===== LOAD ZONE ===== */
+    .load-zone {
+      border: 2px dashed var(--pink-200);
+      border-radius: var(--radius);
+      padding: 44px 20px; text-align: center;
+      cursor: pointer; transition: all 0.2s;
+      background: var(--white);
+    }
+
+    .load-zone:hover { border-color: var(--pink-400); background: var(--pink-50); }
+    .load-zone .icon { font-size: 36px; margin-bottom: 10px; }
+    .load-zone .title { font-size: 14px; font-weight: 600; color: var(--gray-700); margin-bottom: 4px; }
+    .load-zone .desc { font-size: 12px; color: var(--gray-400); }
+    #file-input { display: none; }
+
+    /* ===== LIST HEADER ===== */
+    .list-header {
+      display: flex; justify-content: space-between;
+      align-items: center; margin-bottom: 14px;
+      flex-wrap: wrap; gap: 10px;
+    }
+
+    .list-actions { display: flex; gap: 6px; align-items: center; flex-wrap: wrap; }
+
+    .search-box {
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px; padding: 8px 12px;
+      color: var(--gray-800); font-size: 12px;
+      font-family: inherit; width: 180px;
+      transition: all 0.2s;
+    }
+
+    .search-box:focus {
+      outline: none; border-color: var(--pink-400);
+      box-shadow: 0 0 0 3px rgba(244,114,182,0.08);
+    }
+
+    .search-box::placeholder { color: var(--gray-300); }
+
+    .filter-btn {
+      padding: 7px 12px;
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-200);
+      border-radius: 8px; color: var(--gray-500);
+      font-size: 11px; font-weight: 500;
+      font-family: inherit; cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .filter-btn:hover { border-color: var(--pink-300); color: var(--pink-600); }
+
+    .filter-btn.active {
+      background: var(--pink-500);
+      border-color: var(--pink-500);
+      color: var(--white);
+    }
+
+    /* ===== COMPANY LIST ===== */
+    .company-list {
+      display: flex; flex-direction: column; gap: 8px;
+      max-height: 480px; overflow-y: auto; padding-right: 4px;
+    }
+
+    .company-list::-webkit-scrollbar { width: 5px; }
+    .company-list::-webkit-scrollbar-track { background: transparent; }
+    .company-list::-webkit-scrollbar-thumb { background: var(--pink-200); border-radius: 3px; }
+
+    /* ===== COMPANY CARD ===== */
+    .company-card {
+      display: flex; align-items: center; gap: 12px;
+      padding: 14px 16px;
+      background: var(--gray-50);
+      border: 1.5px solid var(--gray-100);
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+
+    .company-card:hover { border-color: var(--pink-200); background: var(--white); }
+
+    .company-card.sent {
+      opacity: 0.5; border-color: var(--gray-100);
+    }
+
+    .company-card .check {
+      width: 18px; height: 18px;
+      accent-color: var(--pink-500);
+      cursor: pointer; flex-shrink: 0;
+    }
+
+    .company-card .info { flex: 1; min-width: 0; }
+
+    .company-card .name {
+      font-size: 13px; font-weight: 600;
+      color: var(--gray-800);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+
+    .company-card .meta {
+      font-size: 11px; color: var(--gray-400);
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+      margin-top: 1px;
+      display: flex; align-items: center; gap: 6px;
+    }
+
+    /* Rating chip — subtle */
+    .company-card .rating-chip {
+      display: inline-flex; align-items: center; gap: 3px;
+      font-size: 10px; color: var(--gold);
+      font-weight: 600; background: rgba(184,149,110,0.08);
+      padding: 1px 6px; border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .company-card .review-chip {
+      font-size: 10px; color: var(--gray-400);
+      font-weight: 400; flex-shrink: 0;
+    }
+
+    .company-card .phone-display {
+      font-size: 12px; color: var(--pink-500);
+      font-weight: 500; flex-shrink: 0;
+    }
+
+    .company-card .phone-display.nophone {
+      color: var(--gray-300); font-weight: 400;
+    }
+
+    .company-card .card-actions {
+      display: flex; gap: 6px; flex-shrink: 0; align-items: center;
+    }
+
+    .company-card .map-btn {
+      width: 32px; height: 32px;
+      display: flex; align-items: center; justify-content: center;
+      background: var(--pink-50);
+      border: 1px solid var(--pink-200);
+      border-radius: 8px; cursor: pointer;
+      font-size: 14px; transition: all 0.15s;
+      text-decoration: none;
+    }
+
+    .company-card .map-btn:hover {
+      background: var(--pink-100);
+      border-color: var(--pink-300);
+      transform: scale(1.05);
+    }
+
+    .company-card .send-btn {
+      padding: 8px 16px;
+      background: linear-gradient(135deg, var(--pink-400), var(--pink-500));
+      color: var(--white); border: none;
+      border-radius: 8px; font-size: 11px;
+      font-weight: 600; font-family: inherit;
+      cursor: pointer; transition: all 0.15s;
+      box-shadow: 0 2px 8px rgba(236,72,153,0.25);
+      white-space: nowrap;
+    }
+
+    .company-card .send-btn:hover {
+      filter: brightness(1.08);
+      box-shadow: 0 4px 12px rgba(236,72,153,0.35);
+    }
+
+    .company-card .send-btn:disabled {
+      background: var(--gray-200); color: var(--gray-400);
+      box-shadow: none; cursor: not-allowed;
+    }
+
+    .company-card .status-badge {
+      font-size: 10px; padding: 3px 10px;
+      border-radius: 20px; flex-shrink: 0;
+      font-weight: 600;
+      background: rgba(184,149,110,0.1);
+      color: var(--gold);
+    }
+
+    /* ===== BULK ACTIONS ===== */
+    .bulk-actions {
+      display: flex; gap: 8px; margin-top: 16px;
+      padding-top: 16px; border-top: 1px solid var(--pink-100);
+      flex-wrap: wrap;
+    }
+
+    .bulk-btn {
+      padding: 10px 20px; border-radius: var(--radius-sm);
+      font-size: 12px; font-weight: 600;
+      font-family: inherit; cursor: pointer;
+      border: 1.5px solid; transition: all 0.15s;
+    }
+
+    .bulk-btn.primary {
+      background: linear-gradient(135deg, var(--pink-400), var(--pink-500));
+      border-color: var(--pink-500); color: var(--white);
+      box-shadow: 0 2px 8px rgba(236,72,153,0.25);
+    }
+
+    .bulk-btn.primary:hover { filter: brightness(1.05); box-shadow: 0 4px 12px rgba(236,72,153,0.35); }
+
+    .bulk-btn.secondary {
+      background: var(--white);
+      border-color: var(--gray-200); color: var(--gray-600);
+    }
+
+    .bulk-btn.secondary:hover { border-color: var(--pink-300); color: var(--pink-600); }
+
+    .bulk-btn.danger {
+      background: #fef2f2; border-color: #fecaca; color: #dc2626;
+    }
+
+    .bulk-btn.danger:hover { background: #dc2626; color: #fff; border-color: #dc2626; }
+
+    /* ===== EMPTY ===== */
+    .empty { text-align: center; padding: 40px; color: var(--gray-400); font-size: 13px; }
+    .empty .icon { font-size: 32px; margin-bottom: 8px; }
+
+    /* ===== FOOTER ===== */
+    .footer {
+      text-align: center; margin-top: 40px;
+      padding-top: 20px; border-top: 1px solid var(--pink-100);
+    }
+
+    .footer p {
+      font-size: 11px; color: var(--gray-300); margin-bottom: 4px;
+    }
+
+    .footer .love {
+      font-size: 13px; color: var(--pink-400); font-weight: 500;
+    }
+
+    /* ===== TOAST ===== */
+    .toast {
+      position: fixed; bottom: 24px; right: 24px;
+      background: var(--pink-500); color: var(--white);
+      padding: 12px 20px; border-radius: 10px;
+      font-size: 12px; font-weight: 600;
+      opacity: 0; transform: translateY(10px);
+      transition: all 0.3s; z-index: 999;
+      pointer-events: none;
+      box-shadow: 0 4px 16px rgba(236,72,153,0.3);
+    }
+
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .toast.error { background: #dc2626; box-shadow: 0 4px 16px rgba(220,38,38,0.3); }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 640px) {
+      .app { padding: 16px 12px 40px; }
+      .header { padding: 28px 16px; }
+      .header h1 { font-size: 24px; }
+      .stats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+      .form-grid { grid-template-columns: 1fr; }
+      .company-card { flex-wrap: wrap; gap: 8px; }
+      .company-card .card-actions { width: 100%; justify-content: flex-end; }
+      .company-card .send-btn { flex: 1; }
+      .search-box { width: 100%; }
+      .list-actions { width: 100%; }
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <div class="header">
+      <div class="flower">💼</div>
+      <h1>Form Lamaran Yaya</h1>
+      <div class="desc">Kirim lamaran kerja via WhatsApp — cepat dan praktis</div>
+    </div>
+
+    
+    <!-- Stats -->
+    <div class="stats">
+      <div class="stat-card">
+        <div class="num" id="stat-total">0</div>
+        <div class="label">Total Perusahaan</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="stat-available">0</div>
+        <div class="label">Belum Dikirim</div>
+      </div>
+      <div class="stat-card sent">
+        <div class="num" id="stat-sent">0</div>
+        <div class="label">Sudah Kirim</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="stat-no-phone">0</div>
+        <div class="label">Tanpa No. HP</div>
+      </div>
+    </div>
+
+    <!-- Load zone — only shows if auto-load fails -->
+    <div class="load-zone" id="drop-zone" style="display:none" onclick="document.getElementById('file-input').click()">
+      <div class="icon">📂</div>
+      <div class="title">Load Data Perusahaan</div>
+      <div class="desc">Klik atau drag & drop file JSON</div>
+      <input type="file" id="file-input" accept=".json">
+    </div>
+
+    <!-- City Selector — shows when multiple JSON files available -->
+    <div class="card" id="city-section" style="display:none">
+      <h2><span class="icon">🗺️</span> Pilih Lokasi</h2>
+      <div style="display:flex;gap:10px;align-items:center;flex-wrap:wrap">
+        <select id="city-select" style="
+          flex:1; min-width:200px;
+          background:var(--gray-50); border:1.5px solid var(--gray-200);
+          border-radius:var(--radius-sm); padding:11px 14px;
+          color:var(--gray-800); font-size:13px; font-family:inherit;
+          cursor:pointer; transition:all 0.2s;
+        ">
+          <option value="">Pilih kota...</option>
+        </select>
+        <button class="bulk-btn primary" onclick="loadCity()" style="white-space:nowrap">
+          📂 Load Data
+        </button>
+      </div>
+      <div id="city-status" style="font-size:11px;color:var(--gray-400);margin-top:8px"></div>
+    </div>
+
+    <!-- Profile -->
+    <div class="card">
+      <h2><span class="icon">👩</span> Data Diri Yaya</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nama Lengkap</label>
+          <input type="text" id="profile-name" placeholder="Nama lengkap">
+        </div>
+        <div class="form-group">
+          <label>Email</label>
+          <input type="email" id="profile-email" placeholder="email@kamu.com">
+        </div>
+        <div class="form-group full">
+          <label>Link CV</label>
+          <input type="url" id="profile-cv" placeholder="https://drive.google.com/file/d/xxxxx/view">
+        </div>
+      </div>
+    </div>
+
+    <!-- Message -->
+    <div class="card">
+      <h2><span class="icon">💌</span> Template Pesan Lamaran</h2>
+      <textarea class="message-box" id="message-box" placeholder="Tulis pesan lamaran di sini...&#10;&#10;Contoh:&#10;Yth. Bapak/Ibu HRD {perusahaan},&#10;&#10;Perkenalkan nama saya {nama}. Saya sangat tertarik untuk bergabung di perusahaan Bapak/Ibu.&#10;&#10;Bersama ini saya lampirkan CV saya: {link}&#10;&#10;Terima kasih atas perhatiannya.&#10;Hormat saya,&#10;{nama}"></textarea>
+      <div class="insert-buttons">
+        <button class="insert-btn" onclick="insertTag('{nama}')"><span class="plus">+</span> Nama</button>
+        <button class="insert-btn" onclick="insertTag('{email}')"><span class="plus">+</span> Email</button>
+        <button class="insert-btn" onclick="insertTag('{link}')"><span class="plus">+</span> Link CV</button>
+        <button class="insert-btn" onclick="insertTag('{perusahaan}')"><span class="plus">+</span> Nama Perusahaan</button>
+      </div>
+    </div>
+
+    <!-- Company List -->
+    <div class="card" id="list-section" style="display:none">
+      <div class="list-header">
+        <h2><span class="icon">🏢</span> Daftar Perusahaan</h2>
+        <div class="list-actions">
+          <input type="text" class="search-box" id="search-box" placeholder="🔍 Cari perusahaan...">
+          <button class="filter-btn active" data-filter="all">Semua</button>
+          <button class="filter-btn" data-filter="unsent">Belum</button>
+          <button class="filter-btn" data-filter="sent">Kirim</button>
+        </div>
+      </div>
+
+      <div class="company-list" id="company-list"></div>
+
+      <div class="bulk-actions">
+        <button class="bulk-btn primary" onclick="sendSelected()">💬 Kirim Terpilih</button>
+        <button class="bulk-btn secondary" onclick="selectAll()">☑ Pilih Semua</button>
+        <button class="bulk-btn secondary" onclick="deselectAll()">☐ Batal Pilih</button>
+        <button class="bulk-btn danger" onclick="resetAll()">🗑 Reset Status</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="footer">
+      <p>Made with ❤️ for Yaya</p>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script>
+    // ================================================================
+    //  STATE
+    // ================================================================
+    let companies = [];
+    let sentList = {};
+    let currentFilter = 'all';
+
+    let citiesList = [];
+    let currentCity = '';
+
+    const CK_DATA   = 'yaya_data';
+    const CK_SENT   = 'yaya_sent';
+    const CK_PROFILE = 'yaya_profile';
+    const CK_MSG    = 'yaya_msg';
+    const CK_CITY   = 'yaya_city';
+    const CK_DAYS   = 30;
+
+
+    // ================================================================
+    //  INIT
+    // ================================================================
+    window.addEventListener('DOMContentLoaded', async () => {
+      loadCookies();
+      setupDragDrop();
+      setupFilters();
+      setupAutoSave();
+      renderList();
+      updateStats();
+
+      // Try loading cities.json first
+      await loadCitiesList();
+    });
+
+    // ================================================================
+    //  CITIES AUTO-DETECT
+    // ================================================================
+
+    async function fetchJsonFile(file) {
+      // Try fetch first
+      try {
+        const r = await fetch(file);
+        if (r.ok) return await r.json();
+      } catch(e) {}
+      // Try XHR
+      try {
+        return await new Promise((resolve, reject) => {
+          const xhr = new XMLHttpRequest();
+          xhr.open('GET', file, true);
+          xhr.onload = () => xhr.status === 200 ? resolve(JSON.parse(xhr.responseText)) : reject();
+          xhr.onerror = () => reject();
+          xhr.send();
+        });
+      } catch(e) {}
+      return null;
+    }
+
+    async function loadCitiesList() {
+      const data = await fetchJsonFile('cities.json');
+
+      if (data && Array.isArray(data) && data.length > 0) {
+        citiesList = data;
+        const select = document.getElementById('city-select');
+
+        // Populate dropdown
+        select.innerHTML = '<option value="">Pilih kota...</option>';
+        citiesList.forEach(c => {
+          const opt = document.createElement('option');
+          opt.value = c.file;
+          opt.textContent = c.name;
+          select.appendChild(opt);
+        });
+
+        // Restore last selected
+        const lastCity = getCookie(CK_CITY);
+        if (lastCity && citiesList.find(c => c.file === lastCity)) {
+          select.value = lastCity;
+          await loadCityFile(lastCity);
+        } else if (citiesList.length === 1) {
+          // Only one city — auto-load it
+          await loadCityFile(citiesList[0].file);
+        } else {
+          // Multiple cities — show selector
+          document.getElementById('city-section').style.display = 'block';
+        }
+      } else {
+        // No cities.json — fall back to direct load
+        await autoLoad();
+      }
+    }
+
+    async function loadCity() {
+      const file = document.getElementById('city-select').value;
+      if (!file) return toast('Pilih kota terlebih dahulu', true);
+      setCookie(CK_CITY, file, CK_DAYS);
+      document.getElementById('city-status').textContent = '⏳ Loading...';
+      await loadCityFile(file);
+      document.getElementById('city-status').textContent = '';
+    }
+
+    async function loadCityFile(file) {
+      currentCity = file;
+      const d = await fetchJsonFile(file);
+      if (d && Array.isArray(d) && d.length) {
+        loadData(d);
+      } else {
+        toast('File ' + file + ' tidak ditemukan 😥', true);
+        document.getElementById('drop-zone').style.display = 'block';
+      }
+    }
+
+    async function autoLoad() {
+      // Try gmaps_data.json as default
+      const d = await fetchJsonFile('gmaps_data.json');
+      if (d && Array.isArray(d) && d.length) {
+        loadData(d);
+      } else {
+        document.getElementById('drop-zone').style.display = 'block';
+      }
+    }
+
+    function loadData(d) {
+      companies = d.map((x, i) => ({
+        id: i,
+        name: x.name || 'Unknown',
+        address: x.address || '',
+        phone: cleanPhone(x.phone || ''),
+        website: x.website || '',
+        rating: x.rating || '',
+        reviews: x.reviews || '',
+        category: x.category || '',
+        place_url: x.place_url || ''
+      }));
+      saveData();
+      document.getElementById('list-section').style.display = 'block';
+      document.getElementById('drop-zone').style.display = 'none';
+      document.getElementById('city-section').style.display = 'none';
+      renderList();
+      updateStats();
+      toast(`✨ ${companies.length} perusahaan berhasil dimuat!`);
+    }
+
+    // ================================================================
+    //  COOKIES
+    // ================================================================
+    function setCookie(k, v, d) {
+      const dt = new Date();
+      dt.setTime(dt.getTime() + d * 864e5);
+      document.cookie = k + '=' + encodeURIComponent(JSON.stringify(v)) +
+        ';expires=' + dt.toUTCString() + ';path=/;SameSite=Lax';
+    }
+
+    function getCookie(k) {
+      const m = document.cookie.split(';').find(c => c.trim().startsWith(k + '='));
+      if (!m) return null;
+      try { return JSON.parse(decodeURIComponent(m.split('=').slice(1).join('='))); }
+      catch(e) { return null; }
+    }
+
+    function loadCookies() {
+      const p = getCookie(CK_PROFILE);
+      if (p) {
+        document.getElementById('profile-name').value = p.name || '';
+        document.getElementById('profile-email').value = p.email || '';
+        document.getElementById('profile-cv').value = p.cv || '';
+      }
+      const msg = getCookie(CK_MSG);
+      if (msg) document.getElementById('message-box').value = msg;
+      const data = getCookie(CK_DATA);
+      if (data && data.length) {
+        companies = data;
+        document.getElementById('list-section').style.display = 'block';
+        document.getElementById('drop-zone').style.display = 'none';
+      }
+      sentList = getCookie(CK_SENT) || {};
+    }
+
+    function saveProfile() {
+      setCookie(CK_PROFILE, {
+        name: document.getElementById('profile-name').value,
+        email: document.getElementById('profile-email').value,
+        cv: document.getElementById('profile-cv').value
+      }, CK_DAYS);
+    }
+
+    function saveMsg() { setCookie(CK_MSG, document.getElementById('message-box').value, CK_DAYS); }
+    function saveData() { setCookie(CK_DATA, companies, CK_DAYS); }
+    function saveSent() { setCookie(CK_SENT, sentList, CK_DAYS); }
+
+    function setupAutoSave() {
+      document.getElementById('profile-name').addEventListener('input', saveProfile);
+      document.getElementById('profile-email').addEventListener('input', saveProfile);
+      document.getElementById('profile-cv').addEventListener('input', saveProfile);
+      document.getElementById('message-box').addEventListener('input', saveMsg);
+    }
+
+    // ================================================================
+    //  FILE LOAD
+    // ================================================================
+    document.getElementById('file-input').addEventListener('change', e => {
+      if (e.target.files[0]) loadFile(e.target.files[0]);
+    });
+
+    function setupDragDrop() {
+      const z = document.getElementById('drop-zone');
+      z.addEventListener('dragover', e => { e.preventDefault(); z.style.borderColor = 'var(--pink-400)'; });
+      z.addEventListener('dragleave', () => { z.style.borderColor = ''; });
+      z.addEventListener('drop', e => {
+        e.preventDefault(); z.style.borderColor = '';
+        if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+      });
+    }
+
+    function loadFile(f) {
+      const r = new FileReader();
+      r.onload = e => {
+        try {
+          const d = JSON.parse(e.target.result);
+          if (!Array.isArray(d)) throw new Error('Format harus array');
+          loadData(d);
+          toast(`✨ ${companies.length} perusahaan berhasil dimuat!`);
+        } catch(err) { toast('Error: ' + err.message, true); }
+      };
+      r.readAsText(f);
+    }
+
+    // ================================================================
+    //  PHONE
+    // ================================================================
+    function cleanPhone(p) {
+      if (!p) return '';
+      p = p.replace(/[\s\-\(\)\.]/g, '');
+      if (p.startsWith('0')) p = '62' + p.slice(1);
+      p = p.replace('+', '');
+      if (p.length < 10 || p.length > 15) return '';
+      return p;
+    }
+
+    function fmtPhone(p) {
+      if (!p) return '';
+      if (p.startsWith('62')) return '0' + p.slice(2);
+      return p;
+    }
+
+    // ================================================================
+    //  MAP URL
+    // ================================================================
+    function getMapUrl(c) {
+      if (c.place_url) return c.place_url;
+      if (c.address) return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.address);
+      return 'https://www.google.com/maps/search/?api=1&query=' + encodeURIComponent(c.name);
+    }
+
+    // ================================================================
+    //  MESSAGE
+    // ================================================================
+    function buildMsg(c) {
+      let m = document.getElementById('message-box').value;
+      const n = document.getElementById('profile-name').value;
+      const e = document.getElementById('profile-email').value;
+      const cv = document.getElementById('profile-cv').value;
+      m = m.replace(/\{nama\}/gi, n || '[nama]');
+      m = m.replace(/\{email\}/gi, e || '[email]');
+      m = m.replace(/\{link\}/gi, cv || '[link cv]');
+      m = m.replace(/\{perusahaan\}/gi, c.name || '[perusahaan]');
+      return m;
+    }
+
+    function insertTag(tag) {
+      const b = document.getElementById('message-box');
+      const s = b.selectionStart, e = b.selectionEnd;
+      b.value = b.value.slice(0, s) + tag + b.value.slice(e);
+      b.selectionStart = b.selectionEnd = s + tag.length;
+      b.focus();
+      saveMsg();
+    }
+
+    // ================================================================
+    //  WHATSAPP
+    // ================================================================
+    function openWA(phone, msg) {
+      window.open('https://wa.me/' + phone + '?text=' + encodeURIComponent(msg), '_blank');
+    }
+
+    // ================================================================
+    //  RENDER
+    // ================================================================
+    function renderList() {
+      const c = document.getElementById('company-list');
+      const q = document.getElementById('search-box').value.toLowerCase();
+
+      const f = companies.filter(x => {
+        if (q && !x.name.toLowerCase().includes(q) && !x.category.toLowerCase().includes(q)) return false;
+        if (currentFilter === 'sent' && !sentList[x.phone]) return false;
+        if (currentFilter === 'unsent' && sentList[x.phone]) return false;
+        return true;
+      });
+
+      if (!f.length) {
+        c.innerHTML = '<div class="empty"><div class="icon">🔍</div>Belum ada perusahaan</div>';
+        return;
+      }
+
+      c.innerHTML = f.map(x => {
+        const sent = !!sentList[x.phone];
+        const has = !!x.phone;
+        const ratingHtml = x.rating
+          ? `<span class="rating-chip">⭐ ${esc(x.rating)}</span>`
+          : '';
+        const reviewHtml = x.reviews
+          ? `<span class="review-chip">(${esc(x.reviews)})</span>`
+          : '';
+
+        return `
+          <div class="company-card ${sent ? 'sent' : ''}">
+            <input type="checkbox" class="check" data-id="${x.id}" ${!has ? 'disabled' : ''}>
+            <div class="info">
+              <div class="name">${esc(x.name)}</div>
+              <div class="meta">
+                ${esc(x.category || '')}
+                ${ratingHtml}
+                ${reviewHtml}
+                ${x.address ? ' · ' + esc(x.address.substring(0,40)) : ''}
+              </div>
+            </div>
+            ${has ? `<div class="phone-display">📱 ${esc(fmtPhone(x.phone))}</div>` : '<div class="phone-display nophone">Tanpa No.</div>'}
+            <div class="card-actions">
+              <a class="map-btn" href="${getMapUrl(x)}" target="_blank" title="Lihat di Maps">📍</a>
+              ${sent ? '<span class="status-badge">✓ Terkirim</span>' : ''}
+              ${has ? `<button class="send-btn" onclick="sendSingle(${x.id})">💬 Kirim</button>` : '<button class="send-btn" disabled>Tanpa No.</button>'}
+            </div>
+          </div>`;
+      }).join('');
+    }
+
+    function esc(s) { const d = document.createElement('div'); d.textContent = s || ''; return d.innerHTML; }
+
+    // ================================================================
+    //  ACTIONS
+    // ================================================================
+    function sendSingle(id) {
+      const c = companies.find(x => x.id === id);
+      if (!c || !c.phone) return;
+      sentList[c.phone] = new Date().toISOString();
+      saveSent();
+      openWA(c.phone, buildMsg(c));
+      renderList();
+      updateStats();
+      toast(`📱 Buka WhatsApp: ${c.name}`);
+    }
+
+    function sendSelected() {
+      const ch = document.querySelectorAll('.company-card .check:checked');
+      if (!ch.length) return toast('Pilih minimal 1 perusahaan', true);
+      const first = companies.find(x => x.id == ch[0].dataset.id);
+      if (!first || !first.phone) return;
+      ch.forEach(c => {
+        const x = companies.find(y => y.id == c.dataset.id);
+        if (x && x.phone) sentList[x.phone] = new Date().toISOString();
+      });
+      saveSent();
+      openWA(first.phone, buildMsg(first));
+      toast(`💬 ${ch.length} perusahaan ditandai! Semangat ya~`);
+      renderList();
+      updateStats();
+    }
+
+    function selectAll() {
+      document.querySelectorAll('.company-card .check:not(:disabled)').forEach(c => { c.checked = true; });
+    }
+
+    function deselectAll() {
+      document.querySelectorAll('.company-card .check').forEach(c => { c.checked = false; });
+    }
+
+    function resetAll() {
+      if (!confirm('Yakin reset semua status kirim?')) return;
+      sentList = {};
+      saveSent();
+      renderList();
+      updateStats();
+      toast('Status di-reset');
+    }
+
+    // ================================================================
+    //  FILTERS
+    // ================================================================
+    function setupFilters() {
+      document.querySelectorAll('.filter-btn').forEach(b => {
+        b.addEventListener('click', () => {
+          document.querySelectorAll('.filter-btn').forEach(x => x.classList.remove('active'));
+          b.classList.add('active');
+          currentFilter = b.dataset.filter;
+          renderList();
+        });
+      });
+      document.getElementById('search-box').addEventListener('input', renderList);
+    }
+
+    // ================================================================
+    //  STATS
+    // ================================================================
+    function updateStats() {
+      const t = companies.length;
+      const w = companies.filter(c => c.phone).length;
+      const s = companies.filter(c => sentList[c.phone]).length;
+      document.getElementById('stat-total').textContent = t;
+      document.getElementById('stat-available').textContent = w - s;
+      document.getElementById('stat-sent').textContent = s;
+      document.getElementById('stat-no-phone').textContent = t - w;
+    }
+
+    // ================================================================
+    //  TOAST
+    // ================================================================
+    function toast(m, err = false) {
+      const t = document.getElementById('toast');
+      t.textContent = m;
+      t.className = 'toast' + (err ? ' error' : '');
+      setTimeout(() => t.classList.add('show'), 10);
+      setTimeout(() => t.classList.remove('show'), 2500);
+    }
+  </script>
+</body>
+</html>
