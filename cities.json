@@ -4,6 +4,7 @@
   {"name": "Bandung", "file": "bandung.json"},
   {"name": "Bogor", "file": "bogor.json"},
   {"name": "Surabaya", "file": "surabaya.json"},
-  {"name": "Jakarta", "file": "jakarta.json"}
+  {"name": "Jakarta", "file": "jakarta.json"},
+  {"name": "Jogja", "file": "jogja.json"}
 
 ]
